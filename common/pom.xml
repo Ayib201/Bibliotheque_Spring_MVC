@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.groupeisi</groupId>
+    <artifactId>bibliotheque</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>common</artifactId>
+  <name>common</name>
+  <!-- Pas de packaging précisé => "jar" par défaut. common n'est pas une appli web,
+       c'est une simple bibliothèque de classes partagées : DTOs, enums, contrats de mapping. -->
+
+  <!-- common est volontairement au bas de la pyramide : aucune dépendance vers repository,
+       metier ou ihm-jsp. Tous les autres modules pourront dépendre de common, jamais l'inverse.
+       (Sinon on casse le sens de dépendance qu'on vient de mettre en place à l'étape 1.) -->
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.groupeisi</groupId>
+    <artifactId>bibliotheque</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>ihm-jsp</artifactId>
+  <name>ihm-jsp</name>
+  <packaging>war</packaging>
+
+  <!-- Ce module est le sommet de la pyramide : c'est le seul qui produit un .war
+       déployable, le seul qui connaît Spring MVC/JSTL/les vues, et le seul dont
+       dépendent metier (et transitivement repository, common). -->
+  <dependencies>
+    <dependency>
+      <groupId>com.groupeisi</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.groupeisi</groupId>
+      <artifactId>metier</artifactId>
+      <exclusions>
+        <!-- évite d'avoir "common" deux fois dans le classpath (une fois déclaré ici
+             directement, une fois ramené en transitif par metier) -->
+        <exclusion>
+          <groupId>com.groupeisi</groupId>
+          <artifactId>common</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+    </dependency>
+    <!-- Depuis la 3.0.1, org.glassfish.web:jakarta.servlet.jsp.jstl déclare cette API
+         en scope "provided" dans son propre pom, donc Maven ne la propage plus dans le WAR.
+         On la redéclare explicitement (scope compile par défaut) pour que jakarta.servlet.jsp.jstl.core.Config
+         et les autres classes de l'API JSTL se retrouvent bien dans WEB-INF/lib. -->
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>ihm-jsp</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

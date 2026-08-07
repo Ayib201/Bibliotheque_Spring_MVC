@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.groupeisi</groupId>
+    <artifactId>bibliotheque</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>repository</artifactId>
+  <name>repository</name>
+  <!-- Pas de web ici, "repository" est une bibliothèque (packaging jar par défaut) -->
+
+  <dependencies>
+    <!-- entities/Emprunt.java utilise l'enum StatutEmprunt, qui vit dans common -->
+    <dependency>
+      <groupId>com.groupeisi</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+
+    <!-- Persistance : Hibernate (implémentation JPA) + driver PostgreSQL -->
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+    </dependency>
+
+    <!-- spring-orm fournit LocalSessionFactoryBean/HibernateTransactionManager.
+         spring-context fournit @Configuration, @Bean, @Value, @PropertySource et les
+         stéréotypes @Repository/@Component utilisés par les DAO : le module repository
+         configure et expose lui-même sa propre couche de persistance (Single
+         Responsibility : lui seul sait comment il se connecte à la base), les autres
+         modules n'ont qu'à l'utiliser sans rien savoir de Hibernate.
+         spring-jdbc (DriverManagerDataSource) et spring-tx (@Transactional,
+         @EnableTransactionManagement) sont en réalité déjà amenées en transitif par
+         spring-orm, mais on les déclare quand même explicitement : ce module les importe
+         directement dans son code, donc il doit les demander lui-même (principe des
+         dépendances explicites — si spring-orm change un jour sa propre liste de
+         dépendances, notre build ne casse pas silencieusement). -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

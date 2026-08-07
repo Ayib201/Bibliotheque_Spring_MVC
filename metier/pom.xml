@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.groupeisi</groupId>
+    <artifactId>bibliotheque</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>metier</artifactId>
+  <name>metier</name>
+  <!-- Bibliothèque (packaging jar par défaut) : la logique métier ne s'exécute pas
+       toute seule, c'est ihm-jsp qui l'utilisera. -->
+
+  <dependencies>
+    <!-- DTOs + contrat Mapper -->
+    <dependency>
+      <groupId>com.groupeisi</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+    <!-- Entités + DAO : le métier orchestre les DAO, mais ignore tout d'Hibernate -->
+    <dependency>
+      <groupId>com.groupeisi</groupId>
+      <artifactId>repository</artifactId>
+    </dependency>
+
+    <!-- @Service, @Component -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <!-- @Transactional : déclaré explicitement ici (et pas seulement hérité en transitif
+         de repository -> spring-orm) car le code de ce module l'utilise directement. -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
