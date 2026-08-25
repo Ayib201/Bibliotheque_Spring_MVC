@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: layout(~{::title}, ~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un auteur</title>
+</head>
+<body>
+<main>
+    <div class="container py-4" style="max-width: 640px;">
+
+        <h1 class="h3 mb-4">Modifier un auteur</h1>
+
+        <form th:action="@{/auteurs/update}" method="post">
+
+            <input type="hidden" name="id" th:value="${auteur.id}">
+
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="nom" name="nom"
+                       th:value="${auteur.nom}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="prenom" class="form-label">Prénom</label>
+                <input type="text" class="form-control" id="prenom" name="prenom"
+                       th:value="${auteur.prenom}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="nationalite" class="form-label">Nationalité</label>
+                <input type="text" class="form-control" id="nationalite" name="nationalite"
+                       th:value="${auteur.nationalite}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+            <a class="btn btn-link" th:href="@{/auteurs}">Annuler</a>
+        </form>
+
+    </div>
+</main>
+</body>
+</html>

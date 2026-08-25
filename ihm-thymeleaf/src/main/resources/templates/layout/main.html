@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+  Layout commun, sans dépendance supplémentaire (pas de thymeleaf-layout-dialect) :
+  on utilise le mécanisme natif de "template layout" de Thymeleaf 3
+  (fragments paramétrés + th:replace), documenté depuis Thymeleaf 3.0.
+  Chaque page de contenu (ex: auteur/list.html) fait :
+      th:replace="~{layout/main :: layout(~{::title}, ~{::main})}"
+  pour s'insérer dans ce layout.
+-->
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(title, content)">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">Titre par défaut</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main th:replace="${content}">
+    <p>Contenu par défaut</p>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: layout(~{::title}, ~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail de l'auteur</title>
+</head>
+<body>
+<main>
+    <div class="container py-4" style="max-width: 640px;">
+
+        <h1 class="h3 mb-4">
+            <span th:text="${auteur.nom}">Nom</span> <span th:text="${auteur.prenom}">Prénom</span>
+        </h1>
+
+        <dl class="row">
+            <dt class="col-sm-3">Nom</dt>
+            <dd class="col-sm-9" th:text="${auteur.nom}">Nom</dd>
+
+            <dt class="col-sm-3">Prénom</dt>
+            <dd class="col-sm-9" th:text="${auteur.prenom}">Prénom</dd>
+
+            <dt class="col-sm-3">Nationalité</dt>
+            <dd class="col-sm-9" th:text="${auteur.nationalite}">Nationalité</dd>
+
+            <dt class="col-sm-3">Livres</dt>
+            <dd class="col-sm-9">
+                <span th:text="${auteur.nombreLivres}">0</span> livre(s) associé(s)
+            </dd>
+        </dl>
+
+        <a class="btn btn-outline-primary" th:href="@{/auteurs/{id}/edit(id=${auteur.id})}">Modifier</a>
+        <a class="btn btn-link" th:href="@{/auteurs}">Retour à la liste</a>
+
+    </div>
+</main>
+</body>
+</html>

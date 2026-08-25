@@ -6,6 +6,10 @@
     <file url="file://$PROJECT_DIR$/common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ihm-jsp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ihm-jsp/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ihm-thymeleaf/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ihm-thymeleaf/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ihm-tiles/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ihm-tiles/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/metier/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/metier/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/repository/src/main/java" charset="UTF-8" />

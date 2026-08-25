@@ -69,10 +69,6 @@ public class AuteurService implements IAuteurService {
         if (auteur == null) {
             return Optional.empty();
         }
-        // Le mapper accède à auteur.getLivres().size() : on reste dans cette méthode
-        // @Transactional le temps que ce soit fait, donc la collection LAZY peut encore
-        // être chargée depuis la base (plus besoin d'appeler Hibernate.initialize()
-        // explicitement, ce qui évitait au passage à ce module de dépendre de l'API Hibernate).
         return Optional.of(auteurMapper.toDetailDto(auteur));
     }
 }
