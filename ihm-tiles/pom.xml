@@ -10,13 +10,10 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>ihm-jsp</artifactId>
-  <name>ihm-jsp</name>
+  <artifactId>ihm-tiles</artifactId>
+  <name>ihm-tiles</name>
   <packaging>war</packaging>
 
-  <!-- Ce module est le sommet de la pyramide : c'est un des modules qui produit un .war
-       déployable, qui connaît Spring MVC/JSTL/les vues JSP, et qui dépend de metier
-       (et transitivement repository, common). -->
 
   <!-- Versions gérées localement à ce module, pas par le parent. -->
   <properties>
@@ -25,6 +22,8 @@
     <jstl.version>3.0.1</jstl.version>
     <jstl-api.version>3.0.0</jstl-api.version>
     <junit.version>5.11.0</junit.version>
+    <tiles.version>3.1.0.0</tiles.version>
+    <tiles-request.version>1.1.0.0</tiles-request.version>
   </properties>
 
   <dependencies>
@@ -38,6 +37,8 @@
       <artifactId>metier</artifactId>
       <version>${project.version}</version>
       <exclusions>
+        <!-- évite d'avoir "common" deux fois dans le classpath (une fois déclaré ici
+             directement, une fois ramené en transitif par metier) -->
         <exclusion>
           <groupId>com.groupeisi</groupId>
           <artifactId>common</artifactId>
@@ -50,22 +51,69 @@
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
     </dependency>
-
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <version>${servlet.version}</version>
       <scope>provided</scope>
     </dependency>
+
+    <!-- JSP/JSTL : les tuiles Tiles sont des fragments JSP classiques. -->
     <dependency>
       <groupId>org.glassfish.web</groupId>
       <artifactId>jakarta.servlet.jsp.jstl</artifactId>
       <version>${jstl.version}</version>
     </dependency>
+    <!-- Depuis la 3.0.1, org.glassfish.web:jakarta.servlet.jsp.jstl déclare cette API
+         en scope "provided" dans son propre pom, donc Maven ne la propage plus dans le WAR.
+         On la redéclare explicitement (scope compile par défaut) pour que jakarta.servlet.jsp.jstl.core.Config
+         et les autres classes de l'API JSTL se retrouvent bien dans WEB-INF/lib. -->
     <dependency>
       <groupId>jakarta.servlet.jsp.jstl</groupId>
       <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
       <version>${jstl-api.version}</version>
+    </dependency>
+
+    <!-- Apache Tiles (fork jakarta com.github.tntim96.apache.tiles) -->
+    <dependency>
+      <groupId>com.github.tntim96.apache.tiles</groupId>
+      <artifactId>tiles-api</artifactId>
+      <version>${tiles.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tntim96.apache.tiles</groupId>
+      <artifactId>tiles-core</artifactId>
+      <version>${tiles.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tntim96.apache.tiles</groupId>
+      <artifactId>tiles-servlet</artifactId>
+      <version>${tiles.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tntim96.apache.tiles</groupId>
+      <artifactId>tiles-jsp</artifactId>
+      <version>${tiles.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tntim96.apache.tiles</groupId>
+      <artifactId>tiles-template</artifactId>
+      <version>${tiles.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tntim96.apache.tiles</groupId>
+      <artifactId>tiles-request-api</artifactId>
+      <version>${tiles-request.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tntim96.apache.tiles</groupId>
+      <artifactId>tiles-request-servlet</artifactId>
+      <version>${tiles-request.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tntim96.apache.tiles</groupId>
+      <artifactId>tiles-request-jsp</artifactId>
+      <version>${tiles-request.version}</version>
     </dependency>
 
     <dependency>
@@ -89,7 +137,7 @@
   </dependencies>
 
   <build>
-    <finalName>ihm-jsp</finalName>
+    <finalName>ihm-tiles</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -100,10 +148,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <!-- Sans le flag -parameters, le bytecode compilé ne conserve pas les noms
-             des paramètres de méthode : Spring ne peut alors pas déduire tout seul
-             que le "id" de @PathVariable Long id correspond au "{id}" de l'URL,
-             d'où l'IllegalArgumentException au runtime. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.14.1</version>

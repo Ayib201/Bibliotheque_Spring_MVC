@@ -15,23 +15,32 @@
   <!-- Pas de packaging précisé => "jar" par défaut. common n'est pas une appli web,
        c'est une simple bibliothèque de classes partagées : DTOs, enums, contrats de mapping. -->
 
+  <!-- Versions gérées localement à ce module, pas par le parent. -->
+  <properties>
+    <lombok.version>1.18.36</lombok.version>
+    <junit.version>5.11.0</junit.version>
+  </properties>
+
   <!-- common est volontairement au bas de la pyramide : aucune dépendance vers repository,
-       metier ou ihm-jsp. Tous les autres modules pourront dépendre de common, jamais l'inverse.
-       (Sinon on casse le sens de dépendance qu'on vient de mettre en place à l'étape 1.) -->
+       metier ou les modules ihm-*. Tous les autres modules pourront dépendre de common,
+       jamais l'inverse. -->
   <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -12,41 +12,49 @@
 
   <artifactId>metier</artifactId>
   <name>metier</name>
-  <!-- Bibliothèque (packaging jar par défaut) : la logique métier ne s'exécute pas
-       toute seule, c'est ihm-jsp qui l'utilisera. -->
+  <properties>
+    <spring.version>7.0.8</spring.version>
+    <junit.version>5.11.0</junit.version>
+  </properties>
 
   <dependencies>
     <!-- DTOs + contrat Mapper -->
     <dependency>
       <groupId>com.groupeisi</groupId>
       <artifactId>common</artifactId>
+      <version>${project.version}</version>
     </dependency>
+
     <!-- Entités + DAO : le métier orchestre les DAO, mais ignore tout d'Hibernate -->
     <dependency>
       <groupId>com.groupeisi</groupId>
       <artifactId>repository</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <!-- @Service, @Component -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
     </dependency>
-    <!-- @Transactional : déclaré explicitement ici (et pas seulement hérité en transitif
-         de repository -> spring-orm) car le code de ce module l'utilise directement. -->
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

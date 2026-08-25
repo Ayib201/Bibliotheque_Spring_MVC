@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "https://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<!--
+  Chaque <definition name="..."> correspond au nom de vue retourné par
+  AuteurController (ex: "return "auteur/list";" -> definition
+  name="auteur/list"). Toutes héritent du layout commun (header/footer) et ne
+  redéfinissent que la zone "body", qui pointe vers le fragment JSP du
+  contenu propre à l'écran (sans <html>/<head>/<body>, juste le contenu).
+-->
+<tiles-definitions>
+
+    <definition name="base" template="/WEB-INF/views/tiles/layout/main-layout.jsp">
+        <put-attribute name="title" value="Bibliothèque" />
+        <put-attribute name="header" value="/WEB-INF/views/tiles/common/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/common/footer.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <definition name="auteur/list" extends="base">
+        <put-attribute name="title" value="Liste des auteurs" />
+        <put-attribute name="body" value="/WEB-INF/views/tiles/auteur/list.jsp" />
+    </definition>
+
+    <definition name="auteur/create" extends="base">
+        <put-attribute name="title" value="Ajouter un auteur" />
+        <put-attribute name="body" value="/WEB-INF/views/tiles/auteur/create.jsp" />
+    </definition>
+
+    <definition name="auteur/detail" extends="base">
+        <put-attribute name="title" value="Détail de l'auteur" />
+        <put-attribute name="body" value="/WEB-INF/views/tiles/auteur/detail.jsp" />
+    </definition>
+
+    <definition name="auteur/edit" extends="base">
+        <put-attribute name="title" value="Modifier un auteur" />
+        <put-attribute name="body" value="/WEB-INF/views/tiles/auteur/edit.jsp" />
+    </definition>
+
+</tiles-definitions>

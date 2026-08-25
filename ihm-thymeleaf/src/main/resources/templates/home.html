@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: layout(~{::title}, ~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil - Bibliothèque (Thymeleaf)</title>
+</head>
+<body>
+<main>
+    <h1 th:text="${titre}">Titre</h1>
+    <p th:text="${message}">Message</p>
+</main>
+</body>
+</html>
